@@ -1,7 +1,7 @@
 package com.example.entity;
 
 /**
- * 功能：作品分类
+ * 功能：帖子分类
  * 日期：2024/1/24 20:22
  */
 public class Category {

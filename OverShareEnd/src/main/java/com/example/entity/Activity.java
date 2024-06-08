@@ -1,23 +1,23 @@
 package com.example.entity;
 /**
- * 功能：活动管理实体类
+ * 功能：竞赛管理实体类
  * 日期：2024/1/31 20:48
  */
 public class Activity {
 
     /** ID */
     private Integer id;
-    /** 活动名称 */
+    /** 竞赛名称 */
     private String name;
-    /** 活动简介 */
+    /** 竞赛简介 */
     private String descr;
     /** 开始时间 */
     private String start;
     /** 结束时间 */
     private String end;
-    /** 活动形式 */
+    /** 竞赛形式 */
     private String form;
-    /** 活动地址 */
+    /** 竞赛地址 */
     private String address;
     /** 主办方 */
     private String host;
@@ -29,7 +29,7 @@ public class Activity {
     private Integer collectCount;
     private String content;
     private String cover;
-    //活动是否结束
+    //竞赛是否结束
     private Boolean isEndActivity;
 
     //是否报名

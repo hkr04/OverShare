@@ -1,7 +1,7 @@
 <template>
   <div style="width: 50%; margin: 5px auto">
     <div class="card">
-      <div style="font-weight: bold;font-size: 24px;margin-bottom: 20px; text-align: center">发布作品/编辑作品</div>
+      <div style="font-weight: bold;font-size: 24px;margin-bottom: 20px; text-align: center">发布/编辑帖子</div>
       <el-form :model="form" label-width="100px" style="padding-right: 50px" :rules="rules" ref="formRef">
         <el-form-item label="标题" prop="title">
           <el-input v-model="form.title" placeholder="标题"></el-input>
@@ -22,6 +22,16 @@
         <el-form-item label="分类" prop="categoryId">
           <el-select v-model="form.categoryId" style="width: 100%">
             <el-option v-for="item in categoryList" :key="item.id" :value="item.id" :label="item.name"></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="相关竞赛" prop="contestId">
+          <el-select
+              v-model="form.contestId"
+              filterable
+              remote
+              :remote-method="filterContests"
+              style="width: 100%">
+            <el-option v-for="item in filteredContestList" :key="item.id" :value="item.id" :label="item.name"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="标签" prop="tags">
@@ -60,6 +70,8 @@ export default {
       form: {},
       tagsArr: [],
       categoryList: [],
+      contestList: [],
+      filteredContestList: [],  // 过滤后的竞赛列表
       editor: null,
       rules: {
         title: [
@@ -70,6 +82,9 @@ export default {
         ],
         categoryId: [
           {required: true, message: '请选择分类', trigger: 'blur'},
+        ],
+        contestId: [
+          {required: true, message: '请选择相关竞赛', trigger: 'blur'}
         ],
       },
       fromVisible: false,
@@ -82,6 +97,10 @@ export default {
     this.$request.get('/category/selectAll').then(res => {
       this.categoryList = res.data || []
     })
+    this.$request.get('/activity/selectAll').then(response => {
+      this.contestList = response.data || [];
+      this.filteredContestList = this.contestList;  // 初始化过滤列表为完整列表
+    });
     this.$request.get('/blog/select/' + this.blogId).then(res => {
       this.form = res.data || {}
       //设置标签和内容
@@ -98,6 +117,20 @@ export default {
     this.setRichText()
   },
   methods: {
+    filterContests(query) {
+      if (query) {
+        this.$request.get(`/activity/selectByName/`+query).then(response => {
+          this.filteredContestList = response.data;
+        }).catch(error => {
+          console.error('Error fetching activities:', error);
+          this.$message.error('加载竞赛数据失败');
+        });
+      } else {
+        this.$request.get('/activity/selectAll').then(response => {
+          this.filteredContestList = response.data || [];
+        });
+      }
+    },
     handleAdd() {   // 新增数据
       this.form = {}  // 新增数据的时候清空数据
       this.tagsArr = [] // 清空标签数组

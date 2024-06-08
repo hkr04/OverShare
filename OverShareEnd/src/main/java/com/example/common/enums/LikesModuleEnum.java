@@ -1,8 +1,8 @@
 package com.example.common.enums;
 
 public enum LikesModuleEnum {
-    BlOG("作品"),
-    ACTIVITY("活动");
+    BlOG("帖子"),
+    ACTIVITY("竞赛");
 
     private final String value;
 

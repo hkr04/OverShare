@@ -22,12 +22,43 @@
               {{ item }}
             </el-tag>
           </div>
+          <!--关联竞赛-->
+          <div class="custom-card" style="margin-bottom: 10px" v-if="blog.contestId != null" @click="goDetail(contest.id)">
+            <div style="display: flex; grid-gap: 20px">
+              <img :src="contest.cover" style="width: 50%; border-radius: 5px; height: auto" alt="">
+              <div style="flex: 1">
+                <div style="font-weight: bold;font-size: 24px;margin-bottom: 20px;margin-top: 10px">{{ contest.name }}</div>
+                <div style="color: #666666; font-size: 13px; line-height: 22px;text-align: justify;margin-bottom: 20px;margin-right: 20px">
+                  {{ contest.descr }}
+                </div>
+                <div style="color: #666666;margin-bottom: 10px">
+                  <i class="el-icon-date" style="margin-right: 5px"></i>
+                  <span style="margin-right: 5px">时间</span>
+                  <span>{{ contest.start }} - {{ contest.end }}</span>
+                </div>
+                <div style="margin-bottom: 10px; color: #666666">
+                  <i class="el-icon-location-outline" style="margin-right: 5px"></i>
+                  <span style="margin-right: 5px">地址</span>
+                  <span v-if="contest.form === '线上'">
+                      <a style="color: #409EFF" :href="contest.address" target="_blank">{{ contest.address }}</a>
+                      <el-tag size="mini" style="margin-left: 10px">{{ contest.form }}</el-tag>
+                    </span>
+                  <span v-if="contest.form === '线下'">
+                      {{ contest.address }}
+                      <el-tag size="mini" style="margin-left: 10px">{{ contest.form }}</el-tag>
+                    </span>
+                </div>
+              </div>
+            </div>
+          </div>
           <!--内容-->
           <div class="w-e-text" style="width: 100%">
             <div v-html="blog.content"></div>
           </div>
-
         </div>
+
+
+
         <!--点赞、收藏-->
         <div class="card" style="text-align: center; font-size: 20px; color: #666; margin-bottom: 10px">
           <span style="margin-right: 20px; cursor: pointer" @click="setLikes" :class="{'active' : blog.userLike}"><i
@@ -37,8 +68,8 @@
         </div>
         <!--评论-->
         <Comment :fid="blogId" :module="module"></Comment>
-
       </div>
+
       <div class="right" style="width: 260px;margin-left: 10px">
         <div class="card" style="margin-bottom: 10px">
           <div style="display: flex;grid-gap: 10px;align-items: center;margin-bottom: 10px">
@@ -107,9 +138,10 @@ export default {
     return {
       blogId: this.$route.query.blogId,
       blog: {},
+      contest: {},
       tagsArr: [],
       recommendList: [],
-      module: '作品'
+      module: '帖子'
     }
   },
   created() {
@@ -118,6 +150,9 @@ export default {
     this.$request.put('/blog/updateCount/' + this.blogId)
   },
   methods: {
+    goDetail(id) {
+      window.open('/front/ActivityDetail?activityId=' + id)
+    },
     homePage(userId){
       this.$router.push('/front/HomePage?userId=' + userId)
     },
@@ -125,14 +160,22 @@ export default {
       this.$request.get("/blog/select/" + this.blogId).then(res => {
         this.blog = res.data || {}
         this.tagsArr = JSON.parse(this.blog.tags || '[]')
+        if (this.blog.contestId) {
+          this.loadContest(this.blog.contestId);
+        }
       })
 
       this.$request.get("/blog/selectRecommend/" + this.blogId).then(res => {
         this.recommendList = res.data || []
       })
     },
+    loadContest(contestId) {
+      this.$request.get(`/activity/selectById/${contestId}`).then(res => {
+        this.contest = res.data;
+      });
+    },
     setLikes() {
-      this.$request.post("/likes/set", {fid: this.blogId, module: '作品'}).then(res => {
+      this.$request.post("/likes/set", {fid: this.blogId, module: '帖子'}).then(res => {
         if (res.code === '200') {
           this.$message.success("操作成功")
         }
@@ -140,7 +183,7 @@ export default {
       })
     },
     setCollect() {
-      this.$request.post("/collect/set/collect", {fid: this.blogId, module: '作品'}).then(res => {
+      this.$request.post("/collect/set/collect", {fid: this.blogId, module: '帖子'}).then(res => {
         if (res.code === '200') {
           this.$message.success("操作成功")
         }
@@ -204,5 +247,15 @@ p {
   color: #409EFF;
 }
 
+.custom-card {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Adds a subtle shadow */
+  transition: 0.3s; /* Smooth transition for hover effects */
+  border-radius: 10px; /* Rounded corners for a modern look */
+  cursor: pointer;
+}
+
+.custom-card:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4); /* Enhanced shadow on hover */
+}
 
 </style>

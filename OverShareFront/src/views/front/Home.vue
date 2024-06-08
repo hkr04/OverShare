@@ -8,11 +8,13 @@
         </div>
       </div>
       <!--中间正文部分-->
-      <div style="flex: 1">
+      <div class="card" style="flex: 1">
+        <el-button type="primary" @click="addBlog" v-if="user.isCreator" style="margin-bottom: 10px;">发表新帖子</el-button>
+        <el-button type="warning" @click="goToApply" v-if="!user.isCreator" style="margin-bottom: 10px;" justify="end">点此认证后使用发帖功能</el-button>
         <BlogList :categoryName="current"></BlogList>
         <Footer></Footer>
       </div>
-      <!--右边活动、广告、排行榜展示部分-->
+      <!--右边竞赛、广告、排行榜展示部分-->
       <div style="width: 260px">
         <!--欢迎语-->
         <div class="card" style="margin-bottom: 10px;">
@@ -39,7 +41,7 @@
             </div>
           </div>
         </div>
-        <!--活动-->
+        <!--竞赛-->
         <div v-for="item in activityList" :key="item.id" style="margin-bottom: 10px;">
           <a :href="'/front/activityDetail?activityId='+item.id">
             <img :src="item.cover" style="width: 100%; border-radius: 5px" alt="">
@@ -63,12 +65,13 @@ export default {
   },
   data() {
     return {
-      current: '全部作品',  //当前选择的分类名称，默认为全部作品
+      current: '全部竞赛',  //当前选择的分类名称，默认为全部
       categoryList: [],
       topList: [],  //排行榜数据
       showList: [],   //展示的topList
       lastNum: 0,
-      activityList: []
+      activityList: [],
+      user: JSON.parse(localStorage.getItem('xm-user') || '{}')
     }
   },
   mounted() {
@@ -108,9 +111,15 @@ export default {
       //请求分类数据
       this.$request.get('/category/selectAll').then(res => {
         this.categoryList = res.data || []
-        this.categoryList.unshift({name: '全部作品'})
+        this.categoryList.unshift({name: '全部竞赛'})
       })
     },
+    goToApply(){
+      this.$router.push('/front/Certification')
+    },
+    addBlog() {
+      window.open('/front/NewBlog')
+    }
   }
 }
 </script>

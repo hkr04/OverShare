@@ -1,12 +1,14 @@
 package com.example.mapper;
 
 import com.example.entity.Activity;
+import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 
+
 /**
- * 功能：活动表
+ * 功能：竞赛表
  * 日期：2024/1/31 20:55
  */
 public interface ActivityMapper {
@@ -20,6 +22,9 @@ public interface ActivityMapper {
     Activity selectById(Integer id);
 
     List<Activity> selectAll(Activity activity);
+
+    @Select("SELECT * FROM Activity WHERE name LIKE #{name}")
+    List<Activity> selectByName(String name);
 
     List<Activity> selectBlogTop();
 

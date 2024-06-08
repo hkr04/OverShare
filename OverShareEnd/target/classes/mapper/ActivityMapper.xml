@@ -89,7 +89,7 @@
         order by read_count desc
         limit 10
     </select>
-    <!--查询用户已经报名的活动-->
+    <!--查询用户已经报名的竞赛-->
     <select id="selectUser" resultType="com.example.entity.Activity">
         select activity.*
         from activity_sign
@@ -107,7 +107,7 @@
         left join activity
         on likes.fid = activity.id
         <where>
-            and likes.module = '活动'
+            and likes.module = '竞赛'
             <if test="name != null">and activity.name like concat('%', #{name}, '%')</if>
             <if test="userId != null">and likes.user_id = #{userId}</if>
         </where>
@@ -119,7 +119,7 @@
         left join activity
         on collect.fid = activity.id
         <where>
-            and collect.module = '活动'
+            and collect.module = '竞赛'
             <if test="name != null">and activity.name like concat('%', #{name}, '%')</if>
             <if test="userId != null">and collect.user_id = #{userId}</if>
         </where>
@@ -132,7 +132,7 @@
         left join activity
         on comment.fid = activity.id
         <where>
-            and comment.module = '活动'
+            and comment.module = '竞赛'
             <if test="name != null">and activity.name like concat('%', #{name}, '%')</if>
             <if test="userId != null">and comment.user_id = #{userId}</if>
         </where>

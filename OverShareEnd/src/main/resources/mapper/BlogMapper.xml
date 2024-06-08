@@ -5,7 +5,7 @@
 <mapper namespace="com.example.mapper.BlogMapper">
 
     <sql id="Base_Column_List">
-        id,title,content,descr,cover,tags,user_id,date,read_count,category_id
+        id,title,content,descr,cover,tags,user_id,date,read_count,category_id,contest_id
     </sql>
     <insert id="insert">
         insert into blog
@@ -20,6 +20,7 @@
             <if test="date != null">date,</if>
             <if test="readCount != null">read_count,</if>
             <if test="categoryId != null">category_id,</if>
+            <if test="contestId != null">contest_id,</if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="id != null">#{id},</if>
@@ -32,6 +33,7 @@
             <if test="date != null">#{date},</if>
             <if test="readCount != null">#{readCount},</if>
             <if test="categoryId != null">#{categoryId},</if>
+            <if test="contestId != null">#{contestId},</if>
         </trim>
     </insert>
     <update id="updateById">
@@ -46,6 +48,7 @@
             <if test="date != null">date = #{date},</if>
             <if test="readCount != null">read_count = #{readCount},</if>
             <if test="categoryId != null">category_id = #{categoryId},</if>
+            <if test="contestId != null">contest_id = #{contestId},</if>
         </set>
         where id = #{id}
     </update>
@@ -98,7 +101,7 @@
         left join user
         on user.id = blog.user_id
         <where>
-            and likes.module = '作品'
+            and likes.module = '帖子'
             <if test="title != null">and title like concat('%', #{title}, '%')</if>
             <if test="categoryName != null">and category.name like concat('%', #{categoryName}, '%')</if>
             <if test="userName != null">and user.name like concat('%', #{userName}, '%')</if>
@@ -116,7 +119,7 @@
         left join user
         on user.id = blog.user_id
         <where>
-            and collect.module = '作品'
+            and collect.module = '帖子'
             <if test="title != null">and title like concat('%', #{title}, '%')</if>
             <if test="categoryName != null">and category.name like concat('%', #{categoryName}, '%')</if>
             <if test="userName != null">and user.name like concat('%', #{userName}, '%')</if>
@@ -134,7 +137,7 @@
         inner join user
         on user.id = blog.user_id
         <where>
-            and comment.module = '作品'
+            and comment.module = '帖子'
             <if test="title != null">and title like concat('%', #{title}, '%')</if>
             <if test="categoryName != null">and category.name like concat('%', #{categoryName}, '%')</if>
             <if test="userName != null">and user.name like concat('%', #{userName}, '%')</if>

@@ -1,7 +1,7 @@
 package com.example.entity;
 
 /**
- * 功能：活动报名实体类
+ * 功能：竞赛报名实体类
  * 日期：2024/2/27 20:49
  */
 public class ActivitySign {

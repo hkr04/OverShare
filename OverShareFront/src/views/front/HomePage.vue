@@ -33,59 +33,59 @@
       </div>
       <div class="card" style="margin-top: 10px">
         <el-tabs v-model="activeName">
-          <el-tab-pane label="主页" name="主页">
-            <div style="display: flex">
-              <div style="width: 30%">
-                <span style="font-size: 36px;font-weight: bold">{{ memberCount }}</span>
-                <div style="color: #999999">会员人数</div>
-                <el-divider></el-divider>
-                <div style="font-size: 20px; padding: 16px">
-                  <div v-html="pageMsg.synopsis"></div>
-                </div>
-              </div>
+<!--          <el-tab-pane label="主页" name="主页">-->
+<!--            <div style="display: flex">-->
               <!--会员-->
-              <div>
-                <div style="margin-bottom: 5px">
-                  <el-button type="text" @click="handleAdd()" v-if="!isShowConcern">新增会员档位</el-button>
-                </div>
-                <div v-for="item in memberList" :key="item.id">
-                  <el-card shadow="always" style="width: 750px;border: 2px solid #8AC007;margin-bottom: 20px">
-                    <div v-if="!isShowConcern">
-                      <el-button type="text" @click="handleEdit(item.id)" v-if="!isShowConcern">编辑</el-button>
-                      <el-button type="text" @click="deleteMember(item.id)" v-if="!isShowConcern">删除</el-button>
-                    </div>
-                    <div style="font-weight: bold;font-size: 30px">{{ item.title }}</div>
-                    <div style="font-size: 60px;font-weight: bold;margin-bottom: 10px">{{ item.integral }}积分/月</div>
-                    <div style="margin-bottom: 10px;font-size: 16px">
-                      <div v-html="item.info"></div>
-                    </div>
-                    <div style="margin-bottom: 10px">
-                    <span style="font-size: 26px;font-weight: bold">
-                      会员福利：
-                    <br>
-                    </span>
-                      <div>
-                        <el-button type="text" @click="editWelfare(item.id)" v-if="!isShowConcern">设置福利</el-button>
-                      </div>
-                      <div style="color: #999999">
-                        {{ item.welfareTitle }}
-                      </div>
-                    </div>
-                    <div>
-                      <el-button round type="success" size="medium" @click="opened(item.id)" v-if="item.isOpened">
-                        立即开通
-                      </el-button>
-                      <el-button round type="primary" size="medium" v-if="!item.isOpened">
-                        已开通
-                      </el-button>
-                    </div>
-                  </el-card>
-                </div>
+<!--              <div style="width: 30%">-->
+<!--                <span style="font-size: 36px;font-weight: bold">{{ memberCount }}</span>-->
+<!--                <div style="color: #999999">会员人数</div>-->
+<!--                <el-divider></el-divider>-->
+<!--                <div style="font-size: 20px; padding: 16px">-->
+<!--                  <div v-html="pageMsg.synopsis"></div>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--              <div>-->
+<!--                <div style="margin-bottom: 5px">-->
+<!--                  <el-button type="text" @click="handleAdd()" v-if="!isShowConcern">新增会员档位</el-button>-->
+<!--                </div>-->
+<!--                <div v-for="item in memberList" :key="item.id">-->
+<!--                  <el-card shadow="always" style="width: 750px;border: 2px solid #8AC007;margin-bottom: 20px">-->
+<!--                    <div v-if="!isShowConcern">-->
+<!--                      <el-button type="text" @click="handleEdit(item.id)" v-if="!isShowConcern">编辑</el-button>-->
+<!--                      <el-button type="text" @click="deleteMember(item.id)" v-if="!isShowConcern">删除</el-button>-->
+<!--                    </div>-->
+<!--                    <div style="font-weight: bold;font-size: 30px">{{ item.title }}</div>-->
+<!--                    <div style="font-size: 60px;font-weight: bold;margin-bottom: 10px">{{ item.integral }}积分/月</div>-->
+<!--                    <div style="margin-bottom: 10px;font-size: 16px">-->
+<!--                      <div v-html="item.info"></div>-->
+<!--                    </div>-->
+<!--                    <div style="margin-bottom: 10px">-->
+<!--                    <span style="font-size: 26px;font-weight: bold">-->
+<!--                      会员福利：-->
+<!--                    <br>-->
+<!--                    </span>-->
+<!--                      <div>-->
+<!--                        <el-button type="text" @click="editWelfare(item.id)" v-if="!isShowConcern">设置福利</el-button>-->
+<!--                      </div>-->
+<!--                      <div style="color: #999999">-->
+<!--                        {{ item.welfareTitle }}-->
+<!--                      </div>-->
+<!--                    </div>-->
+<!--                    <div>-->
+<!--                      <el-button round type="success" size="medium" @click="opened(item.id)" v-if="item.isOpened">-->
+<!--                        立即开通-->
+<!--                      </el-button>-->
+<!--                      <el-button round type="primary" size="medium" v-if="!item.isOpened">-->
+<!--                        已开通-->
+<!--                      </el-button>-->
+<!--                    </div>-->
+<!--                  </el-card>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </el-tab-pane>-->
 
-              </div>
-            </div>
-          </el-tab-pane>
-          <el-tab-pane label="作品集" name="作品集">
+          <el-tab-pane label="帖子" name="帖子">
             <BlogList type="certification"/>
           </el-tab-pane>
         </el-tabs>
@@ -134,7 +134,7 @@ export default {
       userId: this.$route.query.userId,
       dbUser: JSON.parse(localStorage.getItem('xm-user') || '{}'),
       user: {},
-      activeName: '主页',
+      activeName: '帖子',
       concernCount: 0,
       isShowConcern: true,
       isConcern: false,

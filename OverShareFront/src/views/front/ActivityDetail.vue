@@ -49,11 +49,11 @@
         </div>
       </div>
     </div>
-    <!--活动详情-->
+    <!--竞赛详情-->
     <div class="card" style="margin-bottom: 10px">
       <div
           style="font-weight: bold; font-size: 24px;margin-bottom: 20px;padding-left: 10px;border-left: 5px solid #409EFF">
-        活动详情
+        竞赛详情
       </div>
       <div class="w-e-text">
         <div v-html="activity.content"></div>
@@ -61,7 +61,7 @@
     </div>
     <!--评论-->
     <div>
-      <Comment :fid="activityId" module="活动"/>
+      <Comment :fid="activityId" module="竞赛"/>
     </div>
   </div>
 </template>
@@ -102,7 +102,7 @@ export default {
       })
     },
     handleLike() {
-      this.$request.post("/likes/set", {fid: this.activityId, module: "活动"}).then(res => {
+      this.$request.post("/likes/set", {fid: this.activityId, module: "竞赛"}).then(res => {
         if (res.code === '200') {
           this.$message.success("操作成功")
           this.load()
@@ -112,7 +112,7 @@ export default {
       })
     },
     handleCollect() {
-      this.$request.post("/collect/set/collect", {fid: this.activityId, module: "活动"}).then(res => {
+      this.$request.post("/collect/set/collect", {fid: this.activityId, module: "竞赛"}).then(res => {
         if (res.code === '200') {
           this.$message.success("操作成功")
           this.load()

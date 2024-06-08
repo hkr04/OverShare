@@ -26,7 +26,7 @@ public class ActivitySignService {
     private ActivitySignMapper activitySignMapper;
 
     public void insert(ActivitySign activitySign) {
-        //查询活动是否已报名
+        //查询竞赛是否已报名
         Account currentUser = TokenUtils.getCurrentUser();
         ActivitySign dbActivitySign = this.selectByActivityIdAndUserId(activitySign.getActivityId(), currentUser.getId());
         if (dbActivitySign != null) {

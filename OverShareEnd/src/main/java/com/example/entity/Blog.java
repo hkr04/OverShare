@@ -4,7 +4,7 @@ import javax.swing.text.StyledEditorKit;
 import java.util.Objects;
 
 /**
- * 功能：作品信息
+ * 功能：帖子信息
  * 日期：2024/1/25 22:04
  */
 public class Blog {
@@ -56,6 +56,10 @@ public class Blog {
      * 发布人名称
      */
     private String userName;
+    /**
+     * 关联竞赛编号
+     */
+    private Integer contestId;
 
     private User user;
 
@@ -232,9 +236,11 @@ public class Blog {
         return categoryId;
     }
 
-    public void setCategoryId(Integer categoryId) {
-        this.categoryId = categoryId;
-    }
+    public void setCategoryId(Integer categoryId) { this.categoryId = categoryId; }
+
+    public Integer getContestId() { return  contestId; }
+
+    public void setContestId(Integer contestId) { this.contestId = contestId; }
 
     @Override
     public boolean equals(Object o) {

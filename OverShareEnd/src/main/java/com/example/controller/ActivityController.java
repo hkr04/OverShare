@@ -11,7 +11,7 @@ import javax.annotation.Resource;
 import java.util.List;
 
 /**
- * 功能：活动前端操作接口
+ * 功能：竞赛前端操作接口
  * 日期：2024/1/31 20:50
  */
 
@@ -77,6 +77,15 @@ public class ActivityController {
     }
 
     /**
+     * 按名字查询
+     */
+    @GetMapping("/selectByName/{name}")
+    public Result selectByName(@PathVariable String name) {
+        List<Activity> activities = activityService.selectByName(name);
+        return Result.success(activities);
+    }
+
+    /**
      * 分页查询
      */
     @GetMapping("/selectPage")
@@ -87,7 +96,7 @@ public class ActivityController {
         return Result.success(page);
     }
 
-    //查询用户参加的活动
+    //查询用户参加的竞赛
     @GetMapping("/selectUser")
     public Result selectUser(Activity activity,
                              @RequestParam(defaultValue = "1") Integer pageNum,
@@ -95,7 +104,7 @@ public class ActivityController {
         PageInfo<Activity> page = activityService.selectUser(activity, pageNum, pageSize);
         return Result.success(page);
     }
-    //查询用户点赞的活动
+    //查询用户点赞的竞赛
     @GetMapping("/selectLike")
     public Result selectLike(Activity activity,
                              @RequestParam(defaultValue = "1") Integer pageNum,
@@ -103,7 +112,7 @@ public class ActivityController {
         PageInfo<Activity> page = activityService.selectLike(activity, pageNum, pageSize);
         return Result.success(page);
     }
-    //查询用户收藏的活动
+    //查询用户收藏的竞赛
     @GetMapping("/selectCollect")
     public Result selectCollect(Activity activity,
                              @RequestParam(defaultValue = "1") Integer pageNum,
@@ -111,7 +120,7 @@ public class ActivityController {
         PageInfo<Activity> page = activityService.selectCollect(activity, pageNum, pageSize);
         return Result.success(page);
     }
-    //查询用户评论的活动
+    //查询用户评论的竞赛
     @GetMapping("/selectComment")
     public Result selectComment(Activity activity,
                              @RequestParam(defaultValue = "1") Integer pageNum,
@@ -120,7 +129,7 @@ public class ActivityController {
         return Result.success(page);
     }
 
-    //查询热门活动
+    //查询热门竞赛
     @GetMapping("/selectActivityTop")
     public Result selectActivityTop() {
         List<Activity> list = activityService.selectBlogTop();

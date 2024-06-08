@@ -1,7 +1,7 @@
 <template>
   <div class="main-content" style="width: 50%">
     <div class="card" style="font-weight: bold;font-size: 28px;display: flex">
-      创作者认证
+      身份认证
     </div>
     <div class="card" style="margin-top: 10px">
       <el-form :model="form" ref="formRef" label-width="100px" label-align="right" :rules="rules">

@@ -10,7 +10,7 @@ import javax.annotation.Resource;
 import java.util.List;
 
 /**
- * 功能：作品分类业务处理
+ * 功能：帖子分类业务处理
  * 日期：2024/1/24 20:34
  */
 @Service

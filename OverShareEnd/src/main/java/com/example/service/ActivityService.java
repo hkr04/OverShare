@@ -17,7 +17,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * 功能：活动服务
+ * 功能：竞赛服务
  * 日期：2024/1/31 20:51
  */
 @Service
@@ -72,6 +72,12 @@ public class ActivityService {
         return activityMapper.selectAll(activity);
     }
 
+    public List<Activity> selectByName(String name) {
+        return activityMapper.selectByName("%" + name + "%");
+    }
+
+
+
     public PageInfo<Activity> selectPage(Activity activity, Integer pageNum, Integer pageSize) {
         PageHelper.startPage(pageNum, pageSize);
         List<Activity> list = activityMapper.selectAll(activity);
@@ -84,15 +90,15 @@ public class ActivityService {
         return activityPageInfo;
     }
 
-    //设置活动信息
+    //设置竞赛信息
     private void setAct(Activity act, Account currentUser) {
-        //活动是否结束
+        //竞赛是否结束
             /*
                 该函数将act对象的end属性转换为日期对象，并与当前日期进行比较，
                 如果end属性的日期早于当前日期，则将act对象的isEndActivity属性设置为true，否则设置为false。
              */
         act.setIsEndActivity(DateUtil.parseDate(act.getEnd()).isBefore(new Date()));
-        //查询用户是否报名活动
+        //查询用户是否报名竞赛
         ActivitySign activitySign = activitySignService.selectByActivityIdAndUserId(act.getId(), currentUser.getId());
         act.setIsSign(activitySign != null);
     }
@@ -105,7 +111,7 @@ public class ActivityService {
         activityMapper.updateCount(activityId);
     }
 
-    //查询用户报名的活动
+    //查询用户报名的竞赛
     public PageInfo<Activity> selectUser(Activity activity, Integer pageNum, Integer pageSize) {
         Account currentUser = TokenUtils.getCurrentUser();
         PageHelper.startPage(pageNum, pageSize);

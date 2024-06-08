@@ -9,8 +9,8 @@
       <el-table :data="tableData" stripe @selection-change="handleSelectionChange">
         <el-table-column type="selection" width="55" align="center"></el-table-column>
         <el-table-column prop="id" label="序号" width="80" align="center" sortable></el-table-column>
-        <el-table-column prop="activityId" label="活动ID" show-overflow-tooltip></el-table-column>
-        <el-table-column prop="activityName" label="活动名称" show-overflow-tooltip></el-table-column>
+        <el-table-column prop="activityId" label="竞赛ID" show-overflow-tooltip></el-table-column>
+        <el-table-column prop="activityName" label="竞赛名称" show-overflow-tooltip></el-table-column>
         <el-table-column prop="userId" label="报名人ID" show-overflow-tooltip></el-table-column>
         <el-table-column prop="userName" label="报名人" show-overflow-tooltip></el-table-column>
         <el-table-column prop="time" label="报名时间"></el-table-column>

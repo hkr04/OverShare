@@ -118,7 +118,7 @@ export default {
       }).catch(() => {
       })
     },
-    //请求作品数据
+    //请求帖子数据
     loadBlog(pageNum) {
       let url
       if (pageNum) this.pageNum = pageNum
@@ -145,7 +145,7 @@ export default {
         params: {
           pageNum: this.pageNum,
           pageSize: this.pageSize,
-          categoryName: this.categoryName === '全部作品' ? null : this.categoryName,
+          categoryName: this.categoryName === '全部竞赛' ? null : this.categoryName,
           title: this.title,
           userId: this.userId
         }

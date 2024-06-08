@@ -66,14 +66,14 @@ public class BlogController {
         return Result.success(pageInfo);
     }
 
-    //查询热门作品
+    //查询热门帖子
     @GetMapping("/selectBlogTop")
     public Result selectBlogTop() {
         List<Blog> blogs = blogService.selectBlogTop();
         return Result.success(blogs);
     }
 
-    //查询推荐作品
+    //查询推荐帖子
     @GetMapping("/selectRecommend/{blogId}")
     public Result selectRecommend(@PathVariable Integer blogId) {
         Set<Blog> blogs = blogService.selectRecommend(blogId);
@@ -86,7 +86,7 @@ public class BlogController {
         blogService.updateCount(blogId);
     }
 
-    //分页查询当前用户的作品列表
+    //分页查询当前用户的帖子列表
     @GetMapping("/selectUser")
     public Result selectUserBlogPage(Blog blog,
                                      @RequestParam(defaultValue = "1") Integer pageNum,
@@ -95,7 +95,7 @@ public class BlogController {
         return Result.success(pageInfo);
     }
 
-    //分页查询创作者用户的作品列表
+    //分页查询创作者用户的帖子列表
     @GetMapping("/selectCertification")
     public Result selectCertificationBlogPage(Blog blog,
                                      @RequestParam(defaultValue = "1") Integer pageNum,
@@ -104,7 +104,7 @@ public class BlogController {
         return Result.success(pageInfo);
     }
 
-    //查询以点过赞的作品列表
+    //查询已点过赞的帖子列表
     @GetMapping("/selectLike")
     public Result selectLike(Blog blog,
                                      @RequestParam(defaultValue = "1") Integer pageNum,
@@ -112,7 +112,7 @@ public class BlogController {
         PageInfo<Blog> pageInfo = blogService.selectLike(blog, pageNum, pageSize);
         return Result.success(pageInfo);
     }
-    //查询以收藏过的作品列表
+    //查询已收藏过的帖子列表
     @GetMapping("/selectCollect")
     public Result selectCollect(Blog blog,
                              @RequestParam(defaultValue = "1") Integer pageNum,
@@ -120,7 +120,7 @@ public class BlogController {
         PageInfo<Blog> pageInfo = blogService.selectCollect(blog, pageNum, pageSize);
         return Result.success(pageInfo);
     }
-    //查询以评论过的作品列表
+    //查询已评论过的帖子列表
     @GetMapping("/selectComment")
     public Result selectComment(Blog blog,
                                 @RequestParam(defaultValue = "1") Integer pageNum,

@@ -12,10 +12,10 @@
         <div class="front-header-nav">
           <el-menu :default-active="$route.path" mode="horizontal" router >
 						<el-menu-item index="/front/home" style="margin-left: 60px">首页</el-menu-item>
-						<el-menu-item index="/front/activity">活动中心</el-menu-item>
+						<el-menu-item index="/front/activity">竞赛中心</el-menu-item>
 						<el-menu-item index="/front/person">个人中心</el-menu-item>
 						<el-menu-item index="/front/signIn">签到</el-menu-item>
-						<el-menu-item index="/front/Certification">创作者认证</el-menu-item>
+						<el-menu-item index="/front/Certification">身份认证</el-menu-item>
 						<el-menu-item index="/front/Circulars">系统通知</el-menu-item>
           </el-menu>
         </div>
@@ -39,7 +39,13 @@
             </div>
             <el-dropdown-menu slot="dropdown">
               <el-dropdown-item>
-                <div style="text-decoration: none" @click="logout">退出</div>
+                <div style="text-decoration: none" @click="goHomePage">我的主页</div>
+              </el-dropdown-item>
+              <el-dropdown-item>
+                <div style="text-decoration: none" @click="editHomePage">编辑主页</div>
+              </el-dropdown-item>
+              <el-dropdown-item>
+                <div style="text-decoration: none" @click="logout">退出登录</div>
               </el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
@@ -57,10 +63,14 @@
 <script>
 
 import search from "@/views/front/Search.vue";
+// import editHomePage from "@/views/front/EditHomePage.vue";
 
 export default {
   name: "FrontLayout",
   computed: {
+    // editHomePage() {
+    //   return editHomePage
+    // },
     search() {
       return search
     }
@@ -97,6 +107,12 @@ export default {
           }, 2500)
         }
       })
+    },
+    editHomePage(){
+      window.open('/front/EditHomePage')
+    },
+    goHomePage(){
+      this.$router.push('/front/HomePage?userId=' + this.user.id)
     },
     updateUser() {
       this.user = JSON.parse(localStorage.getItem('xm-user') || '{}')   // 重新获取下用户的最新信息

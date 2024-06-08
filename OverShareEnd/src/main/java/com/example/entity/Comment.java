@@ -28,7 +28,7 @@ public class Comment {
     /** 回复人 */
     private String replyName;
 
-    /** 作品ID */
+    /** 帖子ID */
     private Integer fid;
 
     private String module;

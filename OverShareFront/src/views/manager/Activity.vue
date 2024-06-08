@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="search">
-      <el-input placeholder="请输入活动标题查询" style="width: 200px" v-model="name"></el-input>
+      <el-input placeholder="请输入竞赛标题查询" style="width: 200px" v-model="name"></el-input>
       <el-input placeholder="请输入主办方查询" style="width: 200px; margin-left: 5px" v-model="host"></el-input>
       <el-button type="info" plain style="margin-left: 10px" @click="load(1)">查询</el-button>
       <el-button type="warning" plain style="margin-left: 10px" @click="reset">重置</el-button>
@@ -16,8 +16,8 @@
       <el-table :data="tableData" stripe @selection-change="handleSelectionChange">
         <el-table-column type="selection" width="55" align="center"></el-table-column>
         <el-table-column prop="id" label="序号" width="80" align="center" sortable></el-table-column>
-        <el-table-column prop="name" label="活动名称" show-overflow-tooltip></el-table-column>
-        <el-table-column prop="descr" label="活动简介" show-overflow-tooltip></el-table-column>
+        <el-table-column prop="name" label="竞赛名称" show-overflow-tooltip></el-table-column>
+        <el-table-column prop="descr" label="竞赛简介" show-overflow-tooltip></el-table-column>
         <el-table-column prop="cover" label="封面">
           <template v-slot="scope">
             <div style="display: flex; align-items: center">
@@ -28,14 +28,14 @@
         </el-table-column>
         <el-table-column prop="start" label="开始时间"></el-table-column>
         <el-table-column prop="end" label="结束时间"></el-table-column>
-        <el-table-column prop="form" label="活动形式"></el-table-column>
-        <el-table-column prop="address" label="活动地址" show-overflow-tooltip></el-table-column>
+        <el-table-column prop="form" label="竞赛形式"></el-table-column>
+        <el-table-column prop="address" label="竞赛地址" show-overflow-tooltip></el-table-column>
         <el-table-column prop="host" label="主办方"></el-table-column>
         <el-table-column prop="readCount" label="浏览量"></el-table-column>
-        <el-table-column label="活动内容" width="150px">
+        <el-table-column label="竞赛描述" width="150px">
           <template v-slot="scope">
             <div>
-              <el-button @click="handleActivityContent(scope.row.content)">查看活动内容</el-button>
+              <el-button @click="handleActivityContent(scope.row.content)">查看竞赛描述</el-button>
             </div>
           </template>
         </el-table-column>
@@ -61,13 +61,13 @@
     </div>
 
 
-    <el-dialog title="活动信息" :visible.sync="fromVisible" width="70%" :close-on-click-modal="false" destroy-on-close>
+    <el-dialog title="竞赛信息" :visible.sync="fromVisible" width="70%" :close-on-click-modal="false" destroy-on-close>
       <el-form label-width="100px" style="padding-right: 50px" :model="form" :rules="rules" ref="formRef">
-        <el-form-item prop="name" label="活动标题">
-          <el-input v-model="form.name" placeholder="活动标题"></el-input>
+        <el-form-item prop="name" label="竞赛标题">
+          <el-input v-model="form.name" placeholder="竞赛标题"></el-input>
         </el-form-item>
-        <el-form-item prop="descr" label="活动简介">
-          <el-input v-model="form.descr" placeholder="活动简介" type="textarea"></el-input>
+        <el-form-item prop="descr" label="竞赛简介">
+          <el-input v-model="form.descr" placeholder="竞赛简介" type="textarea"></el-input>
         </el-form-item>
         <el-form-item prop="cover" label="封面">
           <el-upload
@@ -82,7 +82,7 @@
           <el-date-picker
               v-model="form.start"
               type="date"
-              placeholder="请选择活动开始时间"
+              placeholder="请选择竞赛开始时间"
               value-format="yyyy-MM-dd"
               format="yyyy-MM-dd"
           />
@@ -91,24 +91,24 @@
           <el-date-picker
               v-model="form.end"
               type="date"
-              placeholder="请选择活动结束时间"
+              placeholder="请选择竞赛结束时间"
               value-format="yyyy-MM-dd"
               format="yyyy-MM-dd"
           />
         </el-form-item>
-        <el-form-item label="活动形式" prop="form">
+        <el-form-item label="竞赛形式" prop="form">
           <el-select style="width: 100%" v-model="form.form">
             <el-option value="线上"></el-option>
             <el-option value="线下"></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item prop="address" label="活动地址">
-          <el-input v-model="form.address" placeholder="活动地址"></el-input>
+        <el-form-item prop="address" label="竞赛地址">
+          <el-input v-model="form.address" placeholder="竞赛地址"></el-input>
         </el-form-item>
         <el-form-item prop="host" label="主办方">
           <el-input v-model="form.host" placeholder="主办方"></el-input>
         </el-form-item>
-        <el-form-item prop="content" label="活动内容">
+        <el-form-item prop="content" label="竞赛内容">
           <div id="editor"></div>
         </el-form-item>
       </el-form>
@@ -118,7 +118,7 @@
       </div>
     </el-dialog>
 
-    <el-dialog title="活动内容" :visible.sync="fromVisible1" width="70%" :close-on-click-modal="false" destroy-on-close>
+    <el-dialog title="竞赛内容" :visible.sync="fromVisible1" width="70%" :close-on-click-modal="false" destroy-on-close>
       <div class="w-e-text">
         <div v-html="content"></div>
       </div>
@@ -150,22 +150,22 @@ export default {
       user: JSON.parse(localStorage.getItem('xm-user') || '{}'),
       rules: {
         name: [
-          {required: true, message: '请输入活动名称', trigger: 'blur'},
+          {required: true, message: '请输入竞赛名称', trigger: 'blur'},
         ],
         descr: [
-          {required: true, message: '请输入活动简介', trigger: 'blur'},
+          {required: true, message: '请输入竞赛简介', trigger: 'blur'},
         ],
         start: [
-          {required: true, message: '请输入活动开始时间', trigger: 'blur'},
+          {required: true, message: '请输入竞赛开始时间', trigger: 'blur'},
         ],
         end: [
-          {required: true, message: '请输入活动结束时间', trigger: 'blur'},
+          {required: true, message: '请输入竞赛结束时间', trigger: 'blur'},
         ],
         address: [
-          {required: true, message: '请输入活动地址', trigger: 'blur'},
+          {required: true, message: '请输入竞赛地址', trigger: 'blur'},
         ],
         host: [
-          {required: true, message: '请输入活动主办方', trigger: 'blur'},
+          {required: true, message: '请输入竞赛主办方', trigger: 'blur'},
         ],
       },
       ids: [],
