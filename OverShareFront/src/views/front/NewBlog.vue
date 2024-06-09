@@ -36,16 +36,11 @@
         </el-form-item>
         <el-form-item label="标签" prop="tags">
           <el-select v-model="tagsArr" multiple filterable allow-create default-first-option style="width: 100%">
-            <el-option value="绘画"></el-option>
-            <el-option value="写作"></el-option>
-            <el-option value="游戏"></el-option>
-            <el-option value="音乐"></el-option>
-            <el-option value="博客"></el-option>
-            <el-option value="技术"></el-option>
-            <el-option value="素材"></el-option>
-            <el-option value="动画"></el-option>
-            <el-option value="数码"></el-option>
-            <el-option value="虚拟偶像"></el-option>
+            <el-option value="竞赛发布"></el-option>
+            <el-option value="团队招募"></el-option>
+            <el-option value="信息分享"></el-option>
+            <el-option value="技术分享"></el-option>
+            <el-option value="杂谈"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="内容" prop="content">

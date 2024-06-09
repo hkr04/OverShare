@@ -16,19 +16,22 @@
               </div>
               <el-form :model="form" :rules="rules" ref="formRef">
                 <el-form-item prop="username">
-                  <el-input size="medium" prefix-icon="el-icon-user" placeholder="请输入账号" v-model="form.username"></el-input>
+                  <el-input size="medium" prefix-icon="el-icon-user" placeholder="请输入账号"
+                    v-model="form.username"></el-input>
                 </el-form-item>
                 <el-form-item prop="password">
-                  <el-input size="medium" prefix-icon="el-icon-lock" placeholder="请输入密码" show-password v-model="form.password"></el-input>
+                  <el-input size="medium" prefix-icon="el-icon-lock" placeholder="请输入密码" show-password
+                    v-model="form.password"></el-input>
                 </el-form-item>
                 <el-form-item prop="confirmPass">
-                  <el-input size="medium" prefix-icon="el-icon-lock" placeholder="请确认密码" show-password v-model="form.confirmPass"></el-input>
+                  <el-input size="medium" prefix-icon="el-icon-lock" placeholder="请确认密码" show-password
+                    v-model="form.confirmPass"></el-input>
                 </el-form-item>
 
                 <el-form-item prop="code">
                   <div style="display: flex">
                     <el-input style="flex: 1" size="medium" v-model="code"></el-input>
-                    <Identify :identifyCode="identifyCode" @click.native="refreshCode"/>
+                    <Identify :identifyCode="identifyCode" @click.native="refreshCode" />
                   </div>
                 </el-form-item>
 
@@ -84,25 +87,18 @@ export default {
       }
     }
     return {
-      form: { 
-        role: 'USER',
+      form: {
         username: '',
-        email: '',
         password: '',
         confirmPass: '',
-        code: '',   // 表单绑定的验证码
-      // 图片验证码
-      identifyCode: '',
-      // 验证码规则
-      identifyCodes: '123456789ABCDEFGHGKMNPQRSTUVWXY',
+        role:'USER',
       },
+      code: '', // 用户输入的验证码
+      identifyCode: '', // 生成的验证码
+      identifyCodes: '123456789ABCDEFGHGKMNPQRSTUVWXY', // 验证码规则
       rules: {
         username: [
           { required: true, message: '请输入账号', trigger: 'blur' },
-        ],
-        email: [
-          { required: true, message: '请输入邮箱', trigger: 'blur' },
-          { type: 'email', message: '请输入正确的邮箱地址', trigger: ['blur', 'change'] }
         ],
         password: [
           { required: true, message: '请输入密码', trigger: 'blur' },
@@ -110,28 +106,13 @@ export default {
         confirmPass: [
           { validator: validatePassword, trigger: 'blur' }
         ],
-        code: [
-          { required: true, message: '请输入验证码', trigger: 'blur' }
-        ]
       }
     }
+  }, 
+  mounted() {
+    this.refreshCode()
   },
   methods: {
-    register() {
-      this.$refs['formRef'].validate((valid) => {
-        if (valid) {
-          // 验证通过
-          this.$request.post('/register', this.form).then(res => {
-            if (res.code === '200') {
-              this.$router.push('/')  // 跳转登录页面
-              this.$message.success('注册成功')
-            } else {
-              this.$message.error(res.msg)
-            }
-          })
-        }
-      })
-    },
     // 切换验证码
     refreshCode() {
       this.identifyCode = ''
@@ -140,12 +121,39 @@ export default {
     // 生成随机验证码
     makeCode(o, l) {
       for (let i = 0; i < l; i++) {
-        this.identifyCode += this.identifyCodes[Math.floor(Math.random() * (this.identifyCodes.length))]
+        this.identifyCode += this.identifyCodes[Math.floor(Math.random() * this.identifyCodes.length)]
       }
+    },
+    register() {
+      if (!this.code) {
+        this.$message.warning('请输入验证码')
+        this.refreshCode()
+        return
+      }
+      if (this.code.toLowerCase() !== this.identifyCode.toLowerCase()) {
+        this.$message.warning('验证码错误')
+        this.refreshCode()
+        return
+      }
+      this.$refs['formRef'].validate((valid) => {
+        if (valid) {
+          // 验证通过
+          this.$request.post('/register', this.form).then(res => {
+            if (res.code === '200') {
+              this.$router.push('/')  // 跳转登录页面
+              this.$message.success('注册成功')
+            } else {
+              this.refreshCode()
+              this.$message.error(res.msg)
+            }
+          })
+        }
+      })
     },
   }
 }
 </script>
+
 
 <style scoped>
 .container {

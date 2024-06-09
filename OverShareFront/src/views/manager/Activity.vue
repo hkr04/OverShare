@@ -26,8 +26,10 @@
             </div>
           </template>
         </el-table-column>
-        <el-table-column prop="start" label="开始时间"></el-table-column>
-        <el-table-column prop="end" label="结束时间"></el-table-column>
+        <el-table-column prop="applystart" label="报名开始时间"></el-table-column>
+        <el-table-column prop="applyend" label="报名结束时间"></el-table-column>
+        <el-table-column prop="start" label="比赛开始时间"></el-table-column>
+        <el-table-column prop="end" label="比赛结束时间"></el-table-column>
         <el-table-column prop="form" label="竞赛形式"></el-table-column>
         <el-table-column prop="address" label="竞赛地址" show-overflow-tooltip></el-table-column>
         <el-table-column prop="host" label="主办方"></el-table-column>
@@ -78,7 +80,25 @@
             <el-button type="primary">上传封面</el-button>
           </el-upload>
         </el-form-item>
-        <el-form-item prop="start" label="开始时间">
+        <el-form-item prop="applystart" label="报名开始时间">
+          <el-date-picker
+              v-model="form.applystart"
+              type="date"
+              placeholder="请选择报名开始时间"
+              value-format="yyyy-MM-dd"
+              format="yyyy-MM-dd"
+          />
+        </el-form-item>
+        <el-form-item prop="applyend" label="报名结束时间">
+          <el-date-picker
+              v-model="form.applyend"
+              type="date"
+              placeholder="请选择报名结束时间"
+              value-format="yyyy-MM-dd"
+              format="yyyy-MM-dd"
+          />
+        </el-form-item>
+        <el-form-item prop="start" label="竞赛开始时间">
           <el-date-picker
               v-model="form.start"
               type="date"
@@ -87,7 +107,7 @@
               format="yyyy-MM-dd"
           />
         </el-form-item>
-        <el-form-item prop="end" label="结束时间">
+        <el-form-item prop="end" label="竞赛结束时间">
           <el-date-picker
               v-model="form.end"
               type="date"
@@ -154,6 +174,12 @@ export default {
         ],
         descr: [
           {required: true, message: '请输入竞赛简介', trigger: 'blur'},
+        ],
+        applystart: [
+          {required: true, message: '请输入报名开始时间', trigger: 'blur'},
+        ],
+        applyend: [
+          {required: true, message: '请输入报名结束时间', trigger: 'blur'},
         ],
         start: [
           {required: true, message: '请输入竞赛开始时间', trigger: 'blur'},

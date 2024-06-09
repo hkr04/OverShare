@@ -12,7 +12,7 @@
               </div>
 
               <div class="heading" style="margin-top: 50px;margin-bottom: 20px;">
-                <h2 style="width: 350px; font-size: 28px;margin-bottom: 40px;">Welcome OverShare! </h2>
+                <h2 style="width: 350px; font-size: 28px;margin-bottom: 40px;">Welcome to OverShare! </h2>
               </div>
               <el-form :model="form" :rules="rules" ref="formRef">
                 <el-form-item prop="username">

@@ -2,8 +2,8 @@
   <div>
     <div class="front-notice"><i class="el-icon-bell" style="margin-right: 2px"></i>公告：{{ top }}</div>
     <!--头部-->
-    <div class="front-header">
-      <div class="front-header-left">
+    <div class="front-header" style="margin-bottom: 20px;">
+      <div class="front-header-left" style="margin-left: 250px;">
         <img src="@/assets/imgs/logo.png" alt="">
         <div class="title">OverShare竞赛平台
         </div>
@@ -11,7 +11,7 @@
       <div class="front-header-center">
         <div class="front-header-nav">
           <el-menu :default-active="$route.path" mode="horizontal" router >
-						<el-menu-item index="/front/home" style="margin-left: 60px">首页</el-menu-item>
+						<el-menu-item index="/front/home" style="margin-left: 10px">首页</el-menu-item>
 						<el-menu-item index="/front/activity">竞赛中心</el-menu-item>
 						<el-menu-item index="/front/person">个人中心</el-menu-item>
 						<el-menu-item index="/front/signIn">签到</el-menu-item>
@@ -21,8 +21,8 @@
         </div>
       </div>
       <div>
-        <el-input style="width: 260px; margin-right: 10px" placeholder="请输入关键词搜索" v-model="title" clearable></el-input>
-        <el-button type="success" @click="goSearch">搜 索</el-button>
+        <el-input style="width: 260px; margin-right: 10px;margin-top: 5px;" placeholder="请输入关键词搜索" v-model="title" clearable></el-input>
+        <el-button type="success" @click="goSearch" style="margin-right: 30px">搜 索</el-button>
       </div>
       <div class="front-header-right">
         <div v-if="!user.username">
@@ -31,7 +31,7 @@
         </div>
         <div v-else>
           <el-dropdown>
-            <div class="front-header-dropdown">
+            <div class="front-header-dropdown" >
               <img :src="user.avatar" alt="">
               <div style="margin-left: 10px; color:#fff">
                 <span>{{ user.name }}</span><i class="el-icon-arrow-down" style="margin-left: 5px"></i>
@@ -128,5 +128,103 @@ export default {
 </script>
 
 <style scoped>
-  @import "@/assets/css/front.css";
+ body{
+    background-color: #e4e6eb;
+}
+
+
+.front-notice {
+    padding: 5px 20px;
+    color: #666;
+    font-size: 12px;
+    background-color: #fff;
+}
+.front-header {
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    height: 70px;
+    line-height: 60px;
+    border-bottom: 1px solid #eee;
+    background: #0066bc;
+}
+.front-header-left {
+    margin-left:160px;
+    width: 300px;
+    display: flex;
+    align-items: center;
+    padding-left: 30px;
+}
+.front-header-left img{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%
+}
+
+.front-header-dropdown img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex; 
+    align-items: center;
+}
+.front-header-left .title {
+    flex: 1;
+    color: #fff;
+    cursor: pointer;
+    margin-left: 10px;
+    font-size: 20px;
+    font-weight: bold;
+}
+.front-header-center {
+    flex: 1;
+}
+.front-header-right {
+    margin-top: 5px;
+    width: 200px;
+    margin-right: 250px;
+    padding-right: 20px;
+    text-align: right;
+}
+.front-header-dropdown {
+    width: 250px;
+    display: flex;
+    align-items: center;
+}
+.el-dropdown-menu {
+  margin-right: 130px;
+    width: 100px !important;
+    text-align: center !important;
+
+}
+
+/*页面具体样式自定义*/
+.main-content {
+    width: 70%;
+    margin: 5px auto;
+}
+/* ElementUI 样式覆盖 */
+.el-menu.el-menu--horizontal {
+    border: none !important;
+    height: 69px;
+}
+.el-menu{
+    background-color: #0066bc;
+}
+.el-menu-item.is-active {
+    color: #fff !important;
+    background-color: #1890ff !important;
+    height: 69px;
+}
+.el-menu-item {
+    color: #fff !important;
+    border: none !important;
+    height: 69px !important;
+    display: flex; 
+    align-items: center;
+}
+.el-menu-item:not(.is-active):hover {
+    background-color: rgb(121, 187, 249) !important;
+    height: 69px;
+}
 </style>

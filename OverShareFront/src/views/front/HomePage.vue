@@ -1,9 +1,9 @@
 <template>
   <div>
-    <div style="height: 330px;background-color: #2CBE56">
+    <div style="height: 330px;background-color: #2CBE56;">
       <el-image :src="pageMsg.cover" fit="cover" style="width: 100%;height: 100%"></el-image>
     </div>
-    <div class="main-content">
+    <div class="main-content" style="margin-left: 250px;">
       <div class="card" style="padding: 10px; display: flex; justify-content: space-between;">
         <!-- 头像部分 -->
         <div style="margin-right: 15px;">
@@ -383,8 +383,6 @@ blockquote {
 /* code 样式 */
 code {
   display: inline-block;
-  *display: inline;
-  *zoom: 1;
   background-color: #f1f1f1;
   border-radius: 3px;
   padding: 3px 5px;
@@ -399,7 +397,7 @@ p {
   line-height: 30px
 }
 
-/deep/ .el-statistic .head {
+.el-statistic .head {
   margin-bottom: 4px;
   font-size: 20px;
   font-weight: bold;

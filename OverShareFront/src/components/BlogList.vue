@@ -1,9 +1,9 @@
 <template>
-  <div style="min-height: 100vh" class="card">
+  <div style="" class="card">
     <div class="blog-box"
          v-for="item in tableData" :key="item.id" v-if="total > 0">
       <!--正文左边文字部分-->
-      <div style="flex: 1; width: 0">
+      <div style="flex: 1; width: 0;height: 100px;">
         <!--标题-->
         <a :href="'/front/blogDetail?blogId=' + item.id" target="_blank">
           <div class="blog-box-title">{{

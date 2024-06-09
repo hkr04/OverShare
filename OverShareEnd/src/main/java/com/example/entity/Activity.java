@@ -12,6 +12,10 @@ public class Activity {
     /** 竞赛简介 */
     private String descr;
     /** 开始时间 */
+    private String applystart;
+    /** 结束时间 */
+    private String applyend;
+    /** 竞赛形式 */
     private String start;
     /** 结束时间 */
     private String end;
@@ -122,6 +126,21 @@ public class Activity {
         this.descr = descr;
     }
 
+    public String getApplystart() {
+        return applystart;
+    }
+
+    public void setApplystart(String applystart) {
+        this.applystart = applystart;
+    }
+
+    public String getApplyend() {
+        return applyend;
+    }
+
+    public void setApplyend(String  applyend) {
+        this.applyend = applyend;
+    }
     public String getStart() {
         return start;
     }
