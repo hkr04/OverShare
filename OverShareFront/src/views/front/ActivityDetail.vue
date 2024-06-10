@@ -27,6 +27,7 @@
           </div>
           <div style="display: flex">
             <el-button type="primary" disabled v-if="activity.isApplyEnd" key="报名已结束">报名已结束</el-button>
+            <el-button type="primary" disabled v-else-if="!activity.isApplyStart" key="报名未开始">报名未开始</el-button>
             <el-button type="success" v-else-if="activity.isSign" :key="sighText" @click="cancel"
                        @mouseenter.native="sighText='取消报名'" @mouseleave.native="sighText='已报名'">
               {{ sighText }}
@@ -134,7 +135,61 @@ export default {
     load() {
       this.$request.get('/activity/selectById/' + this.activityId).then(res => {
         this.activity = res.data || {}
+        this.startCountdown()
       })
+    },
+    startCountdown() {
+      this.updateCountdown()
+      setInterval(this.updateCountdown, 1000);
+    },
+    updateCountdown() {
+      if (this.activity == null) {
+        return;
+      }
+      const now = new Date();
+      const applyStartTime = new Date(this.activity.applystart);
+      if (applyStartTime > now) {
+        this.$set(this.activity, 'isApplyStart', false);
+      } else {
+        this.$set(this.activity, 'isApplyStart', true);
+      }
+
+      const applyEndTime = new Date(this.activity.applyend);
+      if (applyEndTime >= now) {
+        const applyRemainingTime = this.calculateRemainingTime(now, applyEndTime);
+        this.$set(this.activity, 'applyRemainingDays', applyRemainingTime.days);
+        this.$set(this.activity, 'applyRemainingHours', applyRemainingTime.hours);
+        this.$set(this.activity, 'isApplyEnd', false);
+      } else {
+        this.$set(this.activity, 'applyRemainingDays', 0);
+        this.$set(this.activity, 'applyRemainingHours', 0);
+        this.$set(this.activity, 'isApplyEnd', true);
+      }
+
+      const startTime = new Date(this.activity.start);
+      if (startTime > now) {
+        const remainingTime = this.calculateRemainingTime(now, startTime);
+        this.$set(this.activity, 'remainingDays', remainingTime.days);
+        this.$set(this.activity, 'remainingHours', remainingTime.hours);
+        this.$set(this.activity, 'isStartActivity', false);
+      } else {
+        this.$set(this.activity, 'remainingDays', 0);
+        this.$set(this.activity, 'remainingHours', 0);
+        this.$set(this.activity, 'isStartActivity', true);
+      }
+
+      const endTime = new Date(this.activity.end);
+      if (endTime >= now) {
+        this.$set(this.activity, 'isEndActivity', false);
+      } else {
+        this.$set(this.activity, 'isEndActivity', true);
+      }
+    },
+    calculateRemainingTime(startTime, endTime) {
+      const diff = endTime - startTime;
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      return { days, hours };
     }
   }
 }

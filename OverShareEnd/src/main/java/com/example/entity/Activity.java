@@ -11,11 +11,11 @@ public class Activity {
     private String name;
     /** 竞赛简介 */
     private String descr;
-    /** 开始时间 */
+    /** 开始时间（报名） */
     private String applystart;
     /** 结束时间 */
     private String applyend;
-    /** 竞赛形式 */
+    /** 开始时间 */
     private String start;
     /** 结束时间 */
     private String end;
@@ -33,6 +33,14 @@ public class Activity {
     private Integer collectCount;
     private String content;
     private String cover;
+
+    //报名是否开始
+    private Boolean isApplyStart;
+    //报名是否结束
+    private Boolean isApplyEnd;
+
+    //竞赛是否开始
+    private Boolean isStartActivity;
     //竞赛是否结束
     private Boolean isEndActivity;
 
@@ -94,9 +102,25 @@ public class Activity {
         isSign = sign;
     }
 
-    public Boolean getIsEndActivity() {
-        return isEndActivity;
+    public Boolean getIsApplyStart() { return isApplyStart;}
+
+    public void setIsApplyStart(Boolean applyStart) {
+        isApplyStart = applyStart;
     }
+
+    public Boolean getIsApplyEnd() { return isApplyEnd;}
+
+    public void setIsApplyEnd(Boolean applyEnd) {
+        isApplyEnd = applyEnd;
+    }
+
+    public Boolean getIsStartActivity() { return isStartActivity;}
+
+    public void setIsStartActivity(Boolean startActivity) {
+        isStartActivity = startActivity;
+    }
+
+    public Boolean getIsEndActivity() { return isEndActivity;}
 
     public void setIsEndActivity(Boolean endActivity) {
         isEndActivity = endActivity;
@@ -141,6 +165,7 @@ public class Activity {
     public void setApplyend(String  applyend) {
         this.applyend = applyend;
     }
+
     public String getStart() {
         return start;
     }

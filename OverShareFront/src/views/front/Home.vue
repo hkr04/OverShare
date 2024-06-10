@@ -13,7 +13,7 @@
         <div style="display: flex;height: 350px;">
           <div class="card competion-carousel">
             <el-carousel :interval="3000" arrow="always">
-              <el-carousel-item v-for="(item, index) in activityList" :key="item.id">
+              <el-carousel-item v-for="(item, index) in tableData" :key="item.id">
                 <a :href="'/front/activityDetail?activityId=' + item.id">
                   <img :src="item.cover" style="width: 100%; border-radius: 5px;" alt="">
                 </a>
@@ -24,7 +24,7 @@
             <div slot="header" class="system_title">
               <span>倒计时！</span>
             </div>
-            <div v-for="(item, index) in activityList" :key="item.id" class="announcement-item">
+            <div v-for="(item, index) in tableData" :key="item.id" class="announcement-item">
               <div class="separator"></div> 
               <div class="announcement-header">
                 <span class="announcement-name">{{ item.name }}</span>
@@ -38,10 +38,13 @@
                 </div>
               </div>
               <div class="countdown-footer">
-                <div v-if="!item.isEndActivity" class="countdown">
+                <div v-if="!item.isStartActivity" class="countdown">
                   <div class="countdown-block">
                     <div class="countdown-value">{{ item.remainingDays }}天 | {{ item.remainingHours }}小时</div>
                   </div>
+                </div>
+                <div v-else-if="!item.isEndActivity" class="end-text">
+                  比赛进行中
                 </div>
                 <div v-else class="end-text">
                   比赛已结束
@@ -107,7 +110,7 @@ export default {
       topList: [],  //排行榜数据
       showList: [],   //展示的topList
       lastNum: 0,
-      activityList: [],
+      tableData: [],
       user: JSON.parse(localStorage.getItem('xm-user') || '{}')
     }
   },
@@ -115,14 +118,13 @@ export default {
     this.load()
     this.refreshTop()
     this.loadActivity()
-    this.startCountdown()
   },
   methods: {
     loadActivity() {
       this.$request.get("/activity/selectActivityTop").then(res => {
-        this.activityList = res.data || []
-        this.activityList = this.activityList.slice(0, 5)  // 展示前5个竞赛
-        this.updateCountdown()
+        this.tableData = res.data || []
+        this.tableData = this.tableData.slice(0, 5)  // 展示前5个竞赛
+        this.startCountdown()
       })
     },
     refreshTop() {
@@ -159,13 +161,24 @@ export default {
       window.open('/front/NewBlog')
     },
     startCountdown() {
+      this.updateCountdown()
       setInterval(this.updateCountdown, 1000);
     },
     updateCountdown() {
+      if (this.tableData == null || this.tableData.length === 0) {
+        return;
+      }
       const now = new Date();
-      this.activityList.forEach(item => {
+      this.tableData.forEach(item => {
+        const applyStartTime = new Date(item.applystart);
+        if (applyStartTime > now) {
+          this.$set(item, 'isApplyStart', false);
+        } else {
+          this.$set(item, 'isApplyStart', true);
+        }
+
         const applyEndTime = new Date(item.applyend);
-        if (applyEndTime > now) {
+        if (applyEndTime >= now) {
           const applyRemainingTime = this.calculateRemainingTime(now, applyEndTime);
           this.$set(item, 'applyRemainingDays', applyRemainingTime.days);
           this.$set(item, 'applyRemainingHours', applyRemainingTime.hours);
@@ -176,15 +189,22 @@ export default {
           this.$set(item, 'isApplyEnd', true);
         }
 
-        const endTime = new Date(item.end);
-        if (endTime > now) {
-          const remainingTime = this.calculateRemainingTime(now, endTime);
+        const startTime = new Date(item.start);
+        if (startTime > now) {
+          const remainingTime = this.calculateRemainingTime(now, startTime);
           this.$set(item, 'remainingDays', remainingTime.days);
           this.$set(item, 'remainingHours', remainingTime.hours);
-          this.$set(item, 'isEndActivity', false);
+          this.$set(item, 'isStartActivity', false);
         } else {
           this.$set(item, 'remainingDays', 0);
           this.$set(item, 'remainingHours', 0);
+          this.$set(item, 'isStartActivity', true);
+        }
+
+        const endTime = new Date(item.end);
+        if (endTime >= now) {
+          this.$set(item, 'isEndActivity', false);
+        } else {
           this.$set(item, 'isEndActivity', true);
         }
       });
