@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 80300
 File Encoding         : 65001
 
-Date: 2024-06-10 14:17:19
+Date: 2024-06-10 17:18:35
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -112,7 +112,7 @@ INSERT INTO `blog` VALUES ('42', 'ceshi2', '<p><img src=\"http://localhost:9091/
 INSERT INTO `blog` VALUES ('44', '这是一个测试作品', '', '测试', null, '[]', '14', '2024-06-07', '3', '1', null);
 INSERT INTO `blog` VALUES ('47', '1', '', '11', null, '[]', '14', '2024-06-08', '3', '1', '13');
 INSERT INTO `blog` VALUES ('48', '2', '', '222', null, '[]', '14', '2024-06-08', '14', '1', '7');
-INSERT INTO `blog` VALUES ('50', '互联网+招募', '<p>团队介绍</p><p>需求</p>', '互联网+招募', 'http://localhost:9091/files/1717837652560-7ef360eb-e943-437b-9deb-53992d40a526.jpg', '[]', '14', '2024-06-08', '189', '1', '1');
+INSERT INTO `blog` VALUES ('50', '互联网+招募', '<p>团队介绍</p><p>需求</p>', '互联网+招募', 'http://localhost:9091/files/1717837652560-7ef360eb-e943-437b-9deb-53992d40a526.jpg', '[]', '14', '2024-06-08', '191', '1', '1');
 
 -- ----------------------------
 -- Table structure for blog_encrypt
@@ -200,7 +200,7 @@ CREATE TABLE `circulars` (
   `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '通知标题',
   `time` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '通知时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='系统通知表';
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='系统通知表';
 
 -- ----------------------------
 -- Records of circulars
@@ -222,6 +222,7 @@ INSERT INTO `circulars` VALUES ('14', '11', '身份有问题', '身份有问题'
 INSERT INTO `circulars` VALUES ('15', '12', '违规', '违规', '2024-04-19 00:02:25');
 INSERT INTO `circulars` VALUES ('16', '13', '违规', '违规', '2024-04-19 00:02:46');
 INSERT INTO `circulars` VALUES ('17', '3', '评论内容违规', '评论内容违规', '2024-04-20 01:14:51');
+INSERT INTO `circulars` VALUES ('18', '14', '您的帖子<a href=\"/front/blogDetail?blogId=50\" target=\"_blank\" style=\"color: blue;\">《互联网+招募》</a>有了新的回复：1111', '新的回复', '2024-06-10 17:14:38');
 
 -- ----------------------------
 -- Table structure for collect
