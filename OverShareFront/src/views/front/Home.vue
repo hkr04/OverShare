@@ -121,25 +121,25 @@ export default {
     loadActivity() {
       this.$request.get("/activity/selectActivityTop").then(res => {
         this.activityList = res.data || []
-        this.activityList = this.activityList.slice(0, 5)  // 展示前5个活动
+        this.activityList = this.activityList.slice(0, 5)  // 展示前5个竞赛
         this.updateCountdown()
       })
     },
     refreshTop() {
       this.$request.get("/blog/selectBlogTop").then(res => {
-        this.topList = res.data || []
-        //给topList的每个元素添加序号
-        for (let i = 0; i < this.topList.length; i++) {
-          this.topList[i].index = i + 1
-        }
         //如果已经到了最后一页，就从第一页开始展示
-        if (this.lastNum === this.topList.length) {
+        if (this.lastNum >= this.topList.length) {
           this.lastNum = 0
         }
+        this.topList = res.data || []
+        //给topList的每个元素添加序号
+        for (let i = this.lastNum; i < this.lastNum + 5 && i < this.topList.length; i++) {
+          this.topList[i].index = i - this.lastNum + 1
+        }
         //展示前5个
-        this.showList = this.topList.slice(this.lastNum, this.lastNum + 10)
+        this.showList = this.topList.slice(this.lastNum, this.lastNum + 5)
         //展示下一页5个
-        this.lastNum += 10
+        this.lastNum += 5
       })
     },
     selectCategory(categoryName) {

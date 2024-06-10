@@ -26,7 +26,7 @@
             </span>
           </div>
           <div style="display: flex">
-            <el-button type="primary" disabled v-if="activity.isEndActivity" key="已结束">已结束</el-button>
+            <el-button type="primary" disabled v-if="activity.isApplyEnd" key="报名已结束">报名已结束</el-button>
             <el-button type="success" v-else-if="activity.isSign" :key="sighText" @click="cancel"
                        @mouseenter.native="sighText='取消报名'" @mouseleave.native="sighText='已报名'">
               {{ sighText }}

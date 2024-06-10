@@ -9,8 +9,8 @@
             
             <div><i class="el-icon-time" style="margin-right: 5px"></i>报名时间：{{ item.applystart }} - {{ item.applyend }}</div>
             <div v-if="!item.isApplyEnd" class="countdown">
-              <div class="countdown-block">
-                <div class="countdown-value">{{ item.applyRemainingDays }}天 | {{ item.applyRemainingHours }}小时</div>
+              <div class="countdown-block1">
+                <div class="countdown-value1">{{ item.applyRemainingDays }}天 | {{ item.applyRemainingHours }}小时</div>
               </div>
             </div>
             <div v-else style="color: gray; font-weight: bold;">
@@ -20,8 +20,8 @@
           <div style="display: flex; align-items: center; justify-content: space-between;">
             <div><i class="el-icon-time" style="margin-right: 5px;margin-top: 10px;"></i>比赛时间：{{ item.start }} - {{ item.end }}</div>
             <div v-if="!item.isEndActivity" class="countdown">
-              <div class="countdown-block">
-                <div class="countdown-value">{{ item.remainingDays }}天 | {{ item.remainingHours }}小时</div>
+              <div class="countdown-block1">
+                <div class="countdown-value1">{{ item.remainingDays }}天 | {{ item.remainingHours }}小时</div>
               </div>
             </div>
             <div v-else style="color: gray; font-weight: bold;">
@@ -29,9 +29,10 @@
             </div>
           </div>
           <div style="text-align: right; margin-top: 10px;">
-            <el-button type="primary" disabled v-if="item.isEndActivity" key="已结束">已结束</el-button>
-            <el-button type="primary" disabled v-else-if="item.isSign" key="已报名">已报名</el-button>
-            <el-button type="primary" v-else key="报 名" >报 名</el-button>
+<!--            <el-button type="primary" disabled v-if="item.isApplyEnd" key="报名已结束">报名已结束</el-button>-->
+<!--            <el-button type="primary" disabled v-else-if="item.isSign" key="已报名">已报名</el-button>-->
+<!--            <el-button type="primary" v-else key="查看详情" >查看详情</el-button>-->
+            <el-button type="primary" key="查看详情" >查看详情</el-button>
           </div>
         </div>
       </el-col>
@@ -124,6 +125,9 @@ export default {
       setInterval(this.updateCountdown, 1000);
     },
     updateCountdown() {
+      if (this.tableData == null || this.tableData.length === 0) {
+        return;
+      }
       const now = new Date();
       this.tableData.forEach(item => {
         const applyEndTime = new Date(item.applyend);
@@ -167,7 +171,7 @@ export default {
   gap: 10px;
 }
 
-.countdown-block {
+.countdown-block1 {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -178,7 +182,7 @@ export default {
   background-color: #f5f5f5;
 }
 
-.countdown-value {
+.countdown-value1 {
   font-size: 15px;
   font-weight: bold;
 }

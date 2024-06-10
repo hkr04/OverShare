@@ -94,7 +94,6 @@ export default {
 
   },
   methods: {
-
     updateUser() {
       // 触发父级的数据更新
       this.$emit('update:user')
