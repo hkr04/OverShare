@@ -15,8 +15,16 @@
 						<el-menu-item index="/front/activity">竞赛中心</el-menu-item>
 						<el-menu-item index="/front/person">个人中心</el-menu-item>
 <!--						<el-menu-item index="/front/signIn">签到</el-menu-item>-->
-						<el-menu-item index="/front/Certification">身份认证</el-menu-item>
-						<el-menu-item index="/front/Circulars">系统通知</el-menu-item>
+						<el-menu-item index="/front/Certification">学生认证</el-menu-item>
+						<el-menu-item index="/front/Circulars">
+              系统通知
+              <div class="notification-bell">
+                <i class="fa fa-bell"></i>
+                <span v-if="unreadCount > 0" class="notification-dot">
+                  {{unreadCount}}
+                </span>
+              </div>
+            </el-menu-item>
           </el-menu>
         </div>
       </div>
@@ -81,12 +89,15 @@ export default {
       top: '',
       notice: [],
       user: JSON.parse(localStorage.getItem("xm-user") || '{}'),
-      title:this.$route.query.title
+      title:this.$route.query.title,
+      unreadCount: 0
     }
   },
 
   mounted() {
     this.loadNotice()
+    this.fetchUnreadCount()
+    setInterval(this.fetchUnreadCount, 1000)
   },
   methods: {
     goSearch(){
@@ -122,8 +133,12 @@ export default {
       localStorage.removeItem("xm-user");
       this.$router.push("/login");
     },
+    fetchUnreadCount() {
+      this.$request.get('/msg/getUnreadCount/' + this.user.id).then(res => {
+        this.unreadCount = res
+      })
+    },
   }
-
 }
 </script>
 
@@ -191,6 +206,31 @@ export default {
     display: flex;
     align-items: center;
 }
+
+.notification-bell {
+ position: relative;
+ font-size: 24px; /* Size of the bell icon */
+ cursor: pointer;
+}
+
+.notification-dot {
+ position: absolute;
+ top: -2px;
+ right: -20px;
+ width: 18px; /* Adjust size as needed to fit numbers */
+ height: 18px; /* Adjust size as needed to fit numbers */
+ background-color: red;
+ color: white;
+ font-size: 12px; /* Adjust font size based on the size of the dot */
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ border-radius: 50%;
+ border: 2px solid white; /* White border to make the dot stand out */
+ opacity: 0.85; /* Reduced opacity */
+ box-shadow: 0 1px 3px rgba(0,0,0,0.3); /* Optional: adds a shadow for better visibility */
+}
+
 .el-dropdown-menu {
   margin-right: 130px;
     width: 100px !important;

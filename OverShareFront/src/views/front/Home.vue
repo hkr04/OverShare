@@ -65,13 +65,13 @@
       <div class="right-column" style="margin-top: 350px;">
         <!--欢迎语-->
         <div class="card welcome-card">
-          <div class="welcome-header">欢迎您！</div>
-          <div class="welcome-message">记录美好的一天！</div>
+          <div class="welcome-header">欢迎您</div>
+          <div class="welcome-message">祝您取得理想成绩！</div>
         </div>
-        <!--热门文章-->
+        <!--热门帖子-->
         <div class="card hot-articles">
           <div class="hot-articles-header">
-            <div class="hot-articles-title">热门文章</div>
+            <div class="hot-articles-title">热门帖子  </div>
             <div class="refresh-button" @click="refreshTop"><i class="el-icon-refresh"></i>换一换</div>
           </div>
           <div>

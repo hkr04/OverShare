@@ -44,15 +44,27 @@ public class MsgController {
         msgService.deleteBatch(ids);
         return Result.success();
     }
+
     @GetMapping("/selectById/{id}")
     public Result selectById(@PathVariable Integer id){
         Circulars msg = msgService.selectById(id);
         return Result.success(msg);
     }
+
     @PutMapping("/update")
     public Result updateById(@RequestBody Circulars msg){
         msgService.updateById(msg);
         return Result.success();
+    }
+
+    @GetMapping("/getUnreadCount/{id}")
+    public Integer getUnreadCount(@PathVariable Integer id){
+        return msgService.getUnreadCount(id);
+    }
+
+    @PutMapping("/setChecked/{id}")
+    public void setChecked(@PathVariable Integer id){
+        msgService.setChecked(id);
     }
 
     @GetMapping("/selectPage")

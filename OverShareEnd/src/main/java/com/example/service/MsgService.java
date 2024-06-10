@@ -43,6 +43,14 @@ public class MsgService {
         msgMapper.updateById(msg);
     }
 
+    public  Integer getUnreadCount(Integer id) {
+        return msgMapper.getUnreadCount(id);
+    }
+
+    public void setChecked(Integer id) {
+        msgMapper.setChecked(id);
+    }
+
     public PageInfo<Circulars> selectPage(Circulars msg, Integer pageNum, Integer pageSize) {
         PageHelper.startPage(pageNum,pageSize);
         List<Circulars> list = msgMapper.selectPage(msg);

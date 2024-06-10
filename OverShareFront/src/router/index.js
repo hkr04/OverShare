@@ -28,7 +28,7 @@ const routes = [
       { path: 'activity', name: 'Activity', meta: { name: '竞赛信息' }, component: () => import('../views/manager/Activity') },
       { path: 'comment', name: 'Comment', meta: { name: '评论管理' }, component: () => import('../views/manager/Comment') },
       { path: 'activitySign', name: 'ActivitySign', meta: { name: '竞赛报名' }, component: () => import('../views/manager/ActivitySign') },
-      { path: 'certification', name: 'Certification', meta: { name: '身份认证' }, component: () => import('../views/manager/Certification.vue') },
+      { path: 'certification', name: 'Certification', meta: { name: '学生认证' }, component: () => import('../views/manager/Certification.vue') },
       { path: 'circulars', name: 'Circulars', meta: { name: '系统通知' }, component: () => import('../views/manager/Circulars.vue') },
 
     ]
@@ -46,7 +46,7 @@ const routes = [
       { path: 'search', name: 'Search', meta: { name: '搜索' }, component: () => import('../views/front/Search') },
       { path: 'newBlog', name: 'NewBlog', meta: { name: '发布帖子' }, component: () => import('../views/front/NewBlog') },
       // { path: 'signIn', name: 'SignIn', meta: { name: '签到' }, component: () => import('../views/front/SignIn.vue') },
-      { path: 'certification', name: 'Certification', meta: { name: '身份认证' }, component: () => import('../views/front/Certification.vue') },
+      { path: 'certification', name: 'Certification', meta: { name: '学生认证' }, component: () => import('../views/front/Certification.vue') },
       { path: 'circulars', name: 'Circulars', meta: { name: '系统通知' }, component: () => import('../views/front/Circulars.vue') },
       { path: 'homePage', name: 'HomePage', meta: { name: '我的主页' }, component: () => import('../views/front/HomePage.vue') },
       { path: 'editHomePage', name: 'EditHomePage', meta: { name: '编辑主页' }, component: () => import('../views/front/EditHomePage.vue') },

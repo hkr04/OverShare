@@ -35,7 +35,7 @@ public class CommentService {
         }
         comment.setTime(DateUtil.now());
         Account currentUser = TokenUtils.getCurrentUser();
-        //判断是否是用户，只用用户采用设置userId
+        //判断是否是用户，只有用户才用设置userId
         if (RoleEnum.USER.name().equals(currentUser.getRole())) {
             comment.setUserId(currentUser.getId());
         }

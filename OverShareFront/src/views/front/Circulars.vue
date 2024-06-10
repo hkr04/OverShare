@@ -5,11 +5,16 @@
     </div>
     <div class="card" style="margin-top: 10px">
       <el-table :data="tableData" stripe>
-        <el-table-column prop="title" label="标题" width="200"></el-table-column>
+        <el-table-column prop="title" label="标题" width="200">
+          <template v-slot="scope">
+            {{ scope.row.title }}
+            <span v-if="!scope.row.isChecked" style="color: red; margin-left: 8px;">new!</span>
+          </template>
+        </el-table-column>
         <el-table-column label="通知内容">
           <template v-slot="scope">
             <div>
-              <el-button @click="handleMsgContent(scope.row.content)">查看内容</el-button>
+              <el-button @click="handleMsgContent(scope.row)">查看内容</el-button>
             </div>
           </template>
         </el-table-column>
@@ -39,6 +44,8 @@
   </div>
 </template>
 <script>
+import Home from "@/views/front/Home.vue";
+
 export default {
   name: "Circulars",
   data() {
@@ -73,9 +80,14 @@ export default {
     handleCurrentChange(pageNum) {
       this.load(pageNum)
     },
-    handleMsgContent(content) {
-      this.content = content
+    handleMsgContent(row) {
+      this.markChecked(row)
+      this.content = row.content
       this.fromVisible = true
+      this.load()
+    },
+    markChecked(row) {
+      this.$request.put('/msg/setChecked/' + row.id)
     }
   }
 }

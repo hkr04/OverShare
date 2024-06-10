@@ -11,7 +11,7 @@ public class Circulars {
     private String title;
     private String content;
     private String time;
-    private Boolean isChecked;
+    private Integer isChecked;
 
     public String getUsername() {
         return username;
@@ -61,11 +61,11 @@ public class Circulars {
         this.time = time;
     }
 
-    public Boolean getChecked() {
+    public Integer getIsChecked() {
         return isChecked;
     }
 
-    public void setChecked(Boolean checked) {
-        isChecked = checked;
+    public void setIsChecked(Integer isChecked) {
+        this.isChecked = isChecked;
     }
 }

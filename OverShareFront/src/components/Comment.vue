@@ -134,7 +134,7 @@ export default {
             }
           }).then(res => {
             if (res.code === '200') {  // 表示成功保存
-              this.$message.success('提醒查阅信息发送成功')
+              // this.$message.success('提醒查阅信息发送成功')
               this.fromVisible = false
             } else {
               this.$message.error(res.msg)  // 弹出错误的信息
@@ -188,7 +188,7 @@ export default {
             }
           }).then(res => {
             if (res.code === '200') {  // 表示成功保存
-              this.$message.success('提醒查阅信息发送成功')
+              // this.$message.success('提醒查阅信息发送成功')
               this.fromVisible = false
             } else {
               this.$message.error(res.msg)  // 弹出错误的信息

@@ -49,7 +49,7 @@
             <el-menu-item index="/activity">竞赛信息</el-menu-item>
             <el-menu-item index="/activitySign">竞赛报名</el-menu-item>
             <el-menu-item index="/comment">评论管理</el-menu-item>
-            <el-menu-item index="/certification">身份认证</el-menu-item>
+            <el-menu-item index="/certification">学生认证</el-menu-item>
             <el-menu-item index="/circulars">系统通知</el-menu-item>
           </el-submenu>
 
