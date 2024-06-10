@@ -74,7 +74,9 @@ export default {
   name: "CommentComponent",
   props: {
     fid: null,
-    module: null
+    title: null,
+    module: null,
+    replyId: null
   },
   data() {
     return {
@@ -111,10 +113,33 @@ export default {
         return
       }
       this.$request.post('/comment/add', {
-        pid: item.id, fid: this.fid, module: this.module, rootId: item.rootId, content: item.replyContent
+        pid: item.id,
+        fid: this.fid,
+        module: this.module,
+        replyId: this.replyId,
+        rootId: item.rootId,
+        content: item.replyContent
       }).then(res => {
         if (res.code === '200') {
           this.$message.success("操作成功")
+        }
+        if (this.replyId != null) {
+          this.$request({ // 发送提醒查阅消息
+            url: '/msg/add',
+            method: 'POST',
+            data: {
+              userId: this.replyId,
+              title: "新的回复",
+              content: this.genReplyCommentMsg(this.fid, this.title, item.replyContent)
+            }
+          }).then(res => {
+            if (res.code === '200') {  // 表示成功保存
+              this.$message.success('提醒查阅信息发送成功')
+              this.fromVisible = false
+            } else {
+              this.$message.error(res.msg)  // 弹出错误的信息
+            }
+          })
         }
         item.replyContent = ''
         this.loadComment() // 刷新页面
@@ -129,7 +154,6 @@ export default {
       }).then(res => {
         this.commentList = res.data || []
       })
-
       this.$request.get('comment/selectCommentCount', {
         params: {
           fid: this.fid,
@@ -138,7 +162,6 @@ export default {
       }).then(res => {
         this.commentCount = res.data || 0
       })
-
     },
     addComment() {
       if (this.commentContent === undefined || this.commentContent === '' || this.commentContent === null) {
@@ -147,16 +170,43 @@ export default {
       }
       this.$request.post("/comment/add", {
         fid: this.fid,
+        replyId: this.replyId,
         content: this.commentContent,
         module: this.module
       }).then(res => {
         if (res.code === '200') {
           this.$message.success("操作成功")
         }
+        if (this.replyId != null) {
+          this.$request({ // 发送提醒查阅消息
+            url: '/msg/add',
+            method: 'POST',
+            data: {
+              userId: this.replyId,
+              title: "新的回复",
+              content: this.genCommentMsg(this.fid, this.title, this.commentContent)
+            }
+          }).then(res => {
+            if (res.code === '200') {  // 表示成功保存
+              this.$message.success('提醒查阅信息发送成功')
+              this.fromVisible = false
+            } else {
+              this.$message.error(res.msg)  // 弹出错误的信息
+            }
+          })
+        }
         this.commentContent = ''
         this.loadComment() // 刷新页面
       })
     },
+    genReplyCommentMsg(fid, title, content) {
+      const href = '/front/blogDetail?blogId=' + fid
+      return `您在帖子<a href="${href}" target="_blank" style="color: blue;">《${title}》</a>下的评论有了新的回复：${content}`
+    },
+    genCommentMsg(fid, title, content) {
+      const href = '/front/blogDetail?blogId=' + fid
+      return `您的帖子<a href="${href}" target="_blank" style="color: blue;">《${title}》</a>有了新的回复：${content}`
+    }
   }
 }
 </script>

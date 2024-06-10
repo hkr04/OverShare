@@ -67,7 +67,7 @@
               class="el-icon-star-off"></i>{{ blog.collectCount }}</span>
         </div>
         <!--评论-->
-        <Comment :fid="blogId" :module="module"></Comment>
+        <Comment :fid="blogId" :title="blog.title" :module="module" :replyId="blog.user.id"></Comment>
       </div>
 
       <div class="right" style="width: 260px;margin-left: 10px">

@@ -1,11 +1,11 @@
 <template>
   <div class="main-content" style="width: 50%">
     <div class="card" style="font-weight: bold;font-size: 28px;display: flex">
-      身份认证
+      学生认证
     </div>
     <div class="card" style="margin-top: 10px">
-      <el-form :model="form" ref="formRef" label-width="100px" label-align="right" :rules="rules">
-        <el-form-item label="姓名" prop="name" required>
+      <el-form :model="form" ref="formRef" label-width="200px" label-align="right" :rules="rules">
+        <el-form-item label="学生姓名" prop="name" required>
           <el-input v-model="form.name" placeholder="请输入姓名"></el-input>
         </el-form-item>
         <el-form-item label="本人照片" prop="avatar" required>
@@ -17,36 +17,38 @@
           >
             <el-button type="primary">上传本人照片</el-button>
           </el-upload>
+
         </el-form-item>
-        <el-form-item label="身份证正面(国徽面)" prop="card1" required>
+        <el-form-item label="学校及其院系" prop="address" required>
+          <el-input v-model="form.address" placeholder="请输入学校及其院系"></el-input>
+        </el-form-item>
+        <el-form-item label="学生证正面(人像面)" prop="card1" required>
           <el-upload
               :action="$baseUrl + '/files/upload'"
               :headers="{ token: user.token }"
               list-type="picture"
               :on-success="handleCard1Success"
           >
-            <el-button type="primary">上传身份证正面</el-button>
+            <el-button type="primary">上传学生证正面</el-button>
           </el-upload>
         </el-form-item>
-        <el-form-item label="身份证反面(人像面)" prop="card2" required>
+        <el-form-item label="学生证反面(校徽面)" prop="card2" required>
           <el-upload
               :action="$baseUrl + '/files/upload'"
               :headers="{ token: user.token }"
               list-type="picture"
               :on-success="handleCard2Success"
           >
-            <el-button type="primary">上传身份证反面</el-button>
+            <el-button type="primary">上传学生证反面</el-button>
           </el-upload>
         </el-form-item>
-        <el-form-item label="身份证号码" prop="cardNo" required>
-          <el-input v-model="form.cardNo" placeholder="请输入身份证号码" minlength="18"></el-input>
+        <el-form-item label="学生证号码[学号]" prop="cardNo" required>
+          <el-input v-model="form.cardNo" placeholder="请输入学号" minlength="18"></el-input>
         </el-form-item>
         <el-form-item label="联系方式" prop="phone" required>
           <el-input v-model="form.phone" placeholder="请输入联系方式" minlength="11"></el-input>
         </el-form-item>
-        <el-form-item label="常住地址" prop="address" required>
-          <el-input v-model="form.address" placeholder="请输入常住地址"></el-input>
-        </el-form-item>
+
         <el-form-item label="审核状态" prop="status">
           <div style="padding-top: 15rpx;">
             <el-tag type="default" v-if="!form.status">待申请</el-tag>
@@ -61,7 +63,7 @@
           </div>
         </el-form-item>
 
-        <div style="margin-bottom: 20rpx;">
+        <div style="margin-bottom: 20rpx;margin-left: 200px;">
           <el-button style="background-color: #006eff" :disabled="isFormDisabled" class="my-button-primary"
                      type="primary" @click="submitRequest">
             提交申请
@@ -86,8 +88,8 @@ export default {
       form: {},
       rules: {
         name: [
-          { required: true, message: '请输入姓名', trigger: 'blur' },
-          { min: 2, max: 10, message: '长度在 2 到 10 个字符', trigger: 'blur' },
+          {required: true, message: '请输入姓名', trigger: 'blur'},
+          {min: 2, max: 10, message: '长度在 2 到 10 个字符', trigger: 'blur'},
           {
             required: true,
             pattern: /^[\u4e00-\u9fa5_a-zA-Z0-9.·-]+$/,
@@ -105,10 +107,10 @@ export default {
           {required: true, message: '请上传身份证反面', trigger: 'blur'},
         ],
         cardNo: [
-          {required: true, message: "请输入正确的身份证号码", trigger: "blur"},
+          {required: true, message: "请输入正确的学号", trigger: "blur"},
           {
-            pattern: /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/,
-            message: "请输入正确的身份证号码",
+            pattern: /^20\d{2}\d{4}\d{5}$/,
+            message: "请输入正确的学号",
           },
         ],
         phone: [

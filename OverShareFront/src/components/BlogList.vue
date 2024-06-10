@@ -145,7 +145,7 @@ export default {
         params: {
           pageNum: this.pageNum,
           pageSize: this.pageSize,
-          categoryName: this.categoryName === '全部竞赛' ? null : this.categoryName,
+          categoryName: this.categoryName === '全部帖子' ? null : this.categoryName,
           title: this.title,
           userId: this.userId
         }

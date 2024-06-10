@@ -4,7 +4,7 @@
       <!--左边分类部分-->
       <div class="left-column card" style="margin-top: 350px;">
         <div class="category-item" :class="{ 'category-item-active': item.name === current }"
-          v-for="item in categoryList" :key="item.id" @click="selectCategory(item.name)">{{ item.name }}
+             v-for="item in categoryList" :key="item.id" @click="selectCategory(item.name)">{{ item.name }}
         </div>
       </div>
       <!--中间正文部分-->
@@ -15,17 +15,17 @@
             <el-carousel :interval="3000" arrow="always">
               <el-carousel-item v-for="(item, index) in tableData" :key="item.id">
                 <a :href="'/front/activityDetail?activityId=' + item.id">
-                  <img :src="item.cover" style="width: 100%; border-radius: 5px;" alt="">
+                  <img :src="item.cover" style="width: 850px;height: 300px; border-radius: 5px;" alt="">
                 </a>
               </el-carousel-item>
             </el-carousel>
           </div>
           <div class="card announcements">
-            <div slot="header" class="system_title">
+            <div slot="header" class="system_title" style="width: 90px;margin-left: 15px;margin-bottom: 10px;margin-top: -5px;">
               <span>倒计时！</span>
             </div>
-            <div v-for="(item, index) in tableData" :key="item.id" class="announcement-item">
-              <div class="separator"></div> 
+            <div v-for="(item, index) in tableData" :key="item.id" class="announcement-item" style="width: 400px;margin-left: 15px;">
+              <div class="separator"></div>
               <div class="announcement-header">
                 <span class="announcement-name">{{ item.name }}</span>
                 <div v-if="!item.isApplyEnd" class="countdown">
@@ -105,7 +105,7 @@ export default {
   },
   data() {
     return {
-      current: '全部竞赛',  //当前选择的分类名称，默认为全部
+      current: '全部帖子',  //当前选择的分类名称，默认为全部
       categoryList: [],
       topList: [],  //排行榜数据
       showList: [],   //展示的topList
@@ -151,7 +151,7 @@ export default {
       //请求分类数据
       this.$request.get('/category/selectAll').then(res => {
         this.categoryList = res.data || []
-        this.categoryList.unshift({ name: '全部竞赛' })
+        this.categoryList.unshift({name: '全部帖子'})
       })
     },
     goToApply() {
@@ -213,7 +213,7 @@ export default {
       const diff = endTime - startTime;
       const days = Math.floor(diff / (1000 * 60 * 60 * 24));
       const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      return { days, hours };
+      return {days, hours};
     }
   }
 }
@@ -263,6 +263,7 @@ export default {
   color: #fff;
   border-radius: 5px;
 }
+
 .line1 {
   white-space: nowrap;
   overflow: hidden;
@@ -291,11 +292,13 @@ a {
 .announcement-item {
   margin-bottom: 5px;
 }
+
 .separator {
-  border-top: 1px solid #ccc;
+  border-top: 1px solid #e2e0e0;
   margin-top: 5px;
   margin-bottom: 3px;
 }
+
 .announcement-header {
   display: flex;
   justify-content: space-between;

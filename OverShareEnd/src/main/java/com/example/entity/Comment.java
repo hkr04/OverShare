@@ -15,6 +15,8 @@ public class Comment {
     private String content;
     /** 评论人ID */
     private Integer userId;
+    /** 回复人ID */
+    private Integer replyId;
     /** 评论人 */
     private String userName;
     /** 父级ID */
@@ -25,20 +27,19 @@ public class Comment {
     private String time;
     /** 头像 */
     private String avatar;
-    /** 回复人 */
-    private String replyName;
+
 
     /** 帖子ID */
     private Integer fid;
 
     private String module;
 
-    public String getReplyName() {
-        return replyName;
+    public Integer getReplyId() {
+        return replyId;
     }
 
-    public void setReplyName(String replyName) {
-        this.replyName = replyName;
+    public void setReplyId(Integer replyId) {
+        this.replyId = replyId;
     }
 
     private List<Comment> childrenCommentList;

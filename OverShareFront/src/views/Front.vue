@@ -14,7 +14,7 @@
 						<el-menu-item index="/front/home" style="margin-left: 10px">首页</el-menu-item>
 						<el-menu-item index="/front/activity">竞赛中心</el-menu-item>
 						<el-menu-item index="/front/person">个人中心</el-menu-item>
-						<el-menu-item index="/front/signIn">签到</el-menu-item>
+<!--						<el-menu-item index="/front/signIn">签到</el-menu-item>-->
 						<el-menu-item index="/front/Certification">身份认证</el-menu-item>
 						<el-menu-item index="/front/Circulars">系统通知</el-menu-item>
           </el-menu>

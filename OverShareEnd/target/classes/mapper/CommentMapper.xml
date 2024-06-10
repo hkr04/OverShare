@@ -10,6 +10,7 @@
             <if test="id != null">id,</if>
             <if test="content != null">content,</if>
             <if test="userId != null">user_id,</if>
+            <if test="replyId != null">reply_id,</if>
             <if test="pid != null">pid,</if>
             <if test="rootId != null">root_id,</if>
             <if test="time != null">time,</if>
@@ -20,6 +21,7 @@
             <if test="id != null">#{id},</if>
             <if test="content != null">#{content},</if>
             <if test="userId != null">#{userId},</if>
+            <if test="replyId != null">#{replyId},</if>
             <if test="pid != null">#{pid},</if>
             <if test="rootId != null">#{rootId},</if>
             <if test="time != null">#{time},</if>
@@ -32,6 +34,7 @@
         <set>
             <if test="content != null">content=#{content},</if>
             <if test="userId != null">user_id=#{userId},</if>
+            <if test="replyId != null">reply_id=#{replyId},</if>
             <if test="pid != null">pid=#{pid},</if>
             <if test="rootId != null">root_id=#{rootId},</if>
             <if test="time != null">time=#{time},</if>
@@ -72,6 +75,7 @@
         <where>
             <if test="content != null">and c1.content like concat('%',#{content},'%')</if>
             <if test="userId != null">and c1.user_id = #{userId}</if>
+            <if test="replyId != null">and c1.reply_id = #{replyId}</if>
             <if test="userName != null">and u1.username like concat('%',#{userName},'%')</if>
             <if test="fid != null">and c1.fid = #{fid}</if>
             <if test="module != null">and c1.module = #{module}</if>
@@ -87,6 +91,7 @@
         <where>
             <if test="content != null">and content like concat('%',#{content},'%')</if>
             <if test="userId != null">and user_id = #{userId}</if>
+            <if test="replyId != null">and reply_id = #{replyId}</if>
             <if test="userName != null">and user.username like concat('%',#{userName},'%')</if>
             <if test="fid != null">and fid = #{fid}</if>
             <if test="module != null">and module = #{module}</if>
